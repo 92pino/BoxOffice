@@ -18,10 +18,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     window = UIWindow(windowScene: scene)
     
-    let root = UINavigationController(rootViewController: TestViewController())
+    let root = UINavigationController(rootViewController: MainTabBarController())
+    root.navigationBar.backgroundColor = .white
     
     window?.rootViewController = root
     window?.makeKeyAndVisible()
+    
+    let nvc = UINavigationBar.appearance()
+    nvc.barTintColor = .red
+    nvc.titleTextAttributes = [NSAttributedString.Key.foregroundColor: #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)]
   }
 
 

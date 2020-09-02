@@ -20,6 +20,10 @@
 		61B7C38A24FEAC0B00504694 /* DataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B7C38924FEAC0B00504694 /* DataManager.swift */; };
 		61B7C38C24FEB36200504694 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B7C38B24FEB36200504694 /* TestViewController.swift */; };
 		61B7C38E24FEB43600504694 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 61B7C38D24FEB43600504694 /* Default-568h@2x.png */; };
+		61B7C39024FEC11000504694 /* MovieListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B7C38F24FEC11000504694 /* MovieListTableViewController.swift */; };
+		61B7C39224FEC12D00504694 /* MovieListCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B7C39124FEC12D00504694 /* MovieListCollectionViewController.swift */; };
+		61B7C39424FEC38F00504694 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 61B7C39324FEC38F00504694 /* Launch Screen.storyboard */; };
+		61B7C39624FF413100504694 /* MovieListTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B7C39524FF413100504694 /* MovieListTableCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +42,10 @@
 		61B7C38924FEAC0B00504694 /* DataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataManager.swift; sourceTree = "<group>"; };
 		61B7C38B24FEB36200504694 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		61B7C38D24FEB43600504694 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		61B7C38F24FEC11000504694 /* MovieListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListTableViewController.swift; sourceTree = "<group>"; };
+		61B7C39124FEC12D00504694 /* MovieListCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListCollectionViewController.swift; sourceTree = "<group>"; };
+		61B7C39324FEC38F00504694 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		61B7C39524FF413100504694 /* MovieListTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListTableCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				61B7C36724FEA95200504694 /* Assets.xcassets */,
+				61B7C39324FEC38F00504694 /* Launch Screen.storyboard */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -139,6 +148,7 @@
 		61B7C37924FEAA5300504694 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				61B7C39524FF413100504694 /* MovieListTableCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -148,6 +158,8 @@
 			children = (
 				61B7C36224FEA95000504694 /* MainTabBarController.swift */,
 				61B7C38B24FEB36200504694 /* TestViewController.swift */,
+				61B7C38F24FEC11000504694 /* MovieListTableViewController.swift */,
+				61B7C39124FEC12D00504694 /* MovieListCollectionViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -226,6 +238,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				61B7C39424FEC38F00504694 /* Launch Screen.storyboard in Resources */,
 				61B7C36824FEA95200504694 /* Assets.xcassets in Resources */,
 				61B7C38E24FEB43600504694 /* Default-568h@2x.png in Resources */,
 			);
@@ -238,15 +251,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				61B7C39024FEC11000504694 /* MovieListTableViewController.swift in Sources */,
 				61B7C38224FEAB3800504694 /* ServiceError.swift in Sources */,
 				61B7C38A24FEAC0B00504694 /* DataManager.swift in Sources */,
 				61B7C38C24FEB36200504694 /* TestViewController.swift in Sources */,
 				61B7C38824FEABC300504694 /* BoxOfficeSerivce.swift in Sources */,
+				61B7C39224FEC12D00504694 /* MovieListCollectionViewController.swift in Sources */,
 				61B7C38024FEAABF00504694 /* Logger.swift in Sources */,
 				61B7C36324FEA95000504694 /* MainTabBarController.swift in Sources */,
 				61B7C37E24FEAAB400504694 /* ErrorLog.swift in Sources */,
 				61B7C38424FEAB5700504694 /* BoxOfficeServiceType.swift in Sources */,
 				61B7C35F24FEA95000504694 /* AppDelegate.swift in Sources */,
+				61B7C39624FF413100504694 /* MovieListTableCell.swift in Sources */,
 				61B7C36124FEA95000504694 /* SceneDelegate.swift in Sources */,
 				61B7C38624FEAB6D00504694 /* BoxOfficeList.swift in Sources */,
 			);

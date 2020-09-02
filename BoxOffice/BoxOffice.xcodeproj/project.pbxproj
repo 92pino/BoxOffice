@@ -24,6 +24,7 @@
 		61B7C39224FEC12D00504694 /* MovieListCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B7C39124FEC12D00504694 /* MovieListCollectionViewController.swift */; };
 		61B7C39424FEC38F00504694 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 61B7C39324FEC38F00504694 /* Launch Screen.storyboard */; };
 		61B7C39624FF413100504694 /* MovieListTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B7C39524FF413100504694 /* MovieListTableCell.swift */; };
+		61B7C39C24FFFDC000504694 /* MovieSortingEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61B7C39B24FFFDC000504694 /* MovieSortingEnum.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		61B7C39124FEC12D00504694 /* MovieListCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListCollectionViewController.swift; sourceTree = "<group>"; };
 		61B7C39324FEC38F00504694 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		61B7C39524FF413100504694 /* MovieListTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListTableCell.swift; sourceTree = "<group>"; };
+		61B7C39B24FFFDC000504694 /* MovieSortingEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieSortingEnum.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -141,6 +143,7 @@
 			children = (
 				61B7C38524FEAB6D00504694 /* BoxOfficeList.swift */,
 				61B7C38924FEAC0B00504694 /* DataManager.swift */,
+				61B7C39B24FFFDC000504694 /* MovieSortingEnum.swift */,
 			);
 			path = DataModel;
 			sourceTree = "<group>";
@@ -261,6 +264,7 @@
 				61B7C36324FEA95000504694 /* MainTabBarController.swift in Sources */,
 				61B7C37E24FEAAB400504694 /* ErrorLog.swift in Sources */,
 				61B7C38424FEAB5700504694 /* BoxOfficeServiceType.swift in Sources */,
+				61B7C39C24FFFDC000504694 /* MovieSortingEnum.swift in Sources */,
 				61B7C35F24FEA95000504694 /* AppDelegate.swift in Sources */,
 				61B7C39624FF413100504694 /* MovieListTableCell.swift in Sources */,
 				61B7C36124FEA95000504694 /* SceneDelegate.swift in Sources */,

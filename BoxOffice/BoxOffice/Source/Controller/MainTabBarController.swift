@@ -11,6 +11,7 @@ import UIKit
 class MainTabBarController: UITabBarController {
   
   // Mark: - Properties
+  private let navTitle: String? = ""
   
   // Mark: - Lifecycle
   
@@ -51,7 +52,39 @@ class MainTabBarController: UITabBarController {
   
   // Mark: - Selectors
   @objc func sortingMovieList(_ sender: UIButton) {
+    guard let tableView = viewControllers?[0] as? MovieListTableViewController else { return }
     
+    let alertController: UIAlertController = UIAlertController(title: "정렬방식 선택", message: "영화를 어떤 순서로 정렬할까요?", preferredStyle: .actionSheet)
+    
+    let reservationAction: UIAlertAction = UIAlertAction(title: "예매율", style: .default) { [weak self] _ in
+      tableView.param = "0"
+      self?.settingNaviTitle(title: "예매율")
+    }
+    
+    let curationAction: UIAlertAction = UIAlertAction(title: "큐레이션", style: .default) { [weak self] _ in
+      tableView.param = "1"
+      self?.settingNaviTitle(title: "큐레이션")
+    }
+    
+    let openDayAction: UIAlertAction = UIAlertAction(title: "개봉일", style: .default) { [weak self] _ in
+      tableView.param = "2"
+      self?.settingNaviTitle(title: "개봉일")
+    }
+    
+    let cancelAction: UIAlertAction = UIAlertAction(title: "취소", style: .cancel, handler: nil)
+    
+    alertController.addAction(reservationAction)
+    alertController.addAction(curationAction)
+    alertController.addAction(openDayAction)
+    alertController.addAction(cancelAction)
+    
+    self.present(alertController, animated: true, completion: nil)
+  }
+  
+  func settingNaviTitle(title: String) {
+    DispatchQueue.main.async {
+        self.navigationItem.title = title
+    }
   }
   
 }

@@ -25,8 +25,6 @@ final class BoxOfficeService: BoxOfficeServiceType {
       return logger(ErrorLog.unwrap)
     }
     
-    print("DEBUG : ", url)
-    
     let task = URLSession.shared.dataTask(with: url) {
       (data, response, error) in
       
@@ -43,8 +41,6 @@ final class BoxOfficeService: BoxOfficeServiceType {
         logger(ServiceError.noData.localizedDescription)
         return completionHandler(.failure(.noData))
       }
-      
-      print(data)
       
       // JSON Parsing
       if let boxOffice = try? JSONDecoder().decode(BoxOfficeList.self, from: data) {

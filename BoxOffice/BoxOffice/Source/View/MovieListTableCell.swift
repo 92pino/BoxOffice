@@ -111,7 +111,6 @@ class MovieListTableCell: UITableViewCell {
   }
   
   func movieGradeImage(grade: Int) {
-    print(grade)
     switch grade {
     case 0:
       self.gradeImageView.image = UIImage(named: "ic_allages")

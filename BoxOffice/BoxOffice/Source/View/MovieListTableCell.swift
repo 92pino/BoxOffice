@@ -17,16 +17,42 @@ class MovieListTableCell: UITableViewCell {
   var movieList: MovieList! {
     didSet {
       // 이미지 파싱... 왜 안되는걸까...
-      DispatchQueue.global().async { [weak self] in
-        guard let `self` = self else { return logger(ErrorLog.retainCycle) }
-        if let url = URL(string: self.movieList.thumb), let imageData = try? Data(contentsOf: url), let image = UIImage(data: imageData) {
+      // ==> url이 http로 시
+      
+      /*
+        해결 방법은 info.plist에 추가 해 주면 된다.
+
+        1. NSAppTransportSecurity [Dictionary] 추가
+        2. NSAllowsArbitraryLoads [Boolean] -> YES 설정
+
+        또는 http 대신 https 로 호출 하면 에러 발생 하지 않는다.
+
+      */
+      DispatchQueue.global().async {
+        guard let imageURL: URL = URL(string: self.movieList.thumb) else {
+          return
+        }
+        print(imageURL)
+        if let image = self.cache.object(forKey: imageURL.absoluteString as NSString) {
+          print("cache")
+          print(image)
           DispatchQueue.main.async {
             self.moviePosterImageView.image = image
           }
-        } else {
-          logger(ErrorLog.unwrap)
+        }else {
+          print("not cache")
+          do {
+            let imageData: Data = try Data(contentsOf: imageURL)
+            self.cache.setObject(UIImage(data: imageData) ?? #imageLiteral(resourceName: "img_placeholder"), forKey: imageURL.absoluteString as NSString)
+            DispatchQueue.main.async {
+              self.moviePosterImageView.image = UIImage(data: imageData)
+            }
+          } catch (let error) {
+            print(error.localizedDescription)
+          }
         }
       }
+      
       movieTitle.text = movieList.title
       movieGradeImage(grade: movieList.grade)
       movieInfo.text = movieList.movieInfo
@@ -101,9 +127,9 @@ class MovieListTableCell: UITableViewCell {
     addSubview(stack)
     
     NSLayoutConstraint.activate([
-      moviePosterImageView.topAnchor.constraint(equalTo: topAnchor, constant: 5),
-      moviePosterImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 5),
-      moviePosterImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
+      moviePosterImageView.topAnchor.constraint(equalTo: topAnchor, constant: 15),
+      moviePosterImageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15),
+      moviePosterImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
       moviePosterImageView.widthAnchor.constraint(equalToConstant: 60),
       stack.leadingAnchor.constraint(equalTo: moviePosterImageView.trailingAnchor, constant: 8),
       stack.centerYAnchor.constraint(equalTo: centerYAnchor),

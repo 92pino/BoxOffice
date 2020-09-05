@@ -8,12 +8,11 @@
 
 import Foundation
 
-final class BoxOfficeService: BoxOfficeServiceType {
-  
+final class BoxOfficeService: BoxOfficeServiceType {  
   
   private let baseURL = "https://connect-boxoffice.run.goorm.io/"
   
-  func fetchBoxOfficeData(requestType: RequestType, paramTitle: String, param: String, completionHandler: @escaping (Result<BoxOfficeList, ServiceError>) -> Void) {
+  func fetchBoxOfficeData<T>(requestType: RequestType, paramTitle: String, param: String, completionHandler: @escaping (Result<T, ServiceError>) -> Void) where T : Decodable {
     
     var urlComponent = URLComponents(string: baseURL)
     urlComponent?.path = makeParamTitle(type: requestType)
@@ -43,7 +42,7 @@ final class BoxOfficeService: BoxOfficeServiceType {
       }
       
       // JSON Parsing
-      if let boxOffice = try? JSONDecoder().decode(BoxOfficeList.self, from: data) {
+      if let boxOffice = try? JSONDecoder().decode(T.self, from: data) {
         logger("Networking is Success")
         logger("테스트 데이터는 정렬된 데이터가 제공되지 않아서 남기는 URL log \(url)")
         completionHandler(.success(boxOffice))

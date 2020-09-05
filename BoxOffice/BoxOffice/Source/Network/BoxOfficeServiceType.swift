@@ -16,11 +16,11 @@ enum RequestType {
 
 protocol BoxOfficeServiceType {
   
-  func fetchBoxOfficeData(
+  func fetchBoxOfficeData<T: Decodable>(
     requestType: RequestType,
     paramTitle: String,
     param: String,
-    completionHandler: @escaping (Result<BoxOfficeList, ServiceError>) -> Void
+    completionHandler: @escaping (Result<T, ServiceError>) -> Void
   )
   
 }

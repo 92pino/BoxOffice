@@ -18,7 +18,7 @@ class TestViewController: UIViewController {
   }
   
   private func test() {
-    DataManager.shared.service.fetchBoxOfficeData(requestType: RequestType.movieList, paramTitle: "order_type", param: "1") { result in
+    DataManager.shared.service.fetchBoxOfficeData(requestType: RequestType.movieList, paramTitle: "order_type", param: "1") { (result: Result<BoxOfficeList, ServiceError>) in
       print(result)
     }
   }

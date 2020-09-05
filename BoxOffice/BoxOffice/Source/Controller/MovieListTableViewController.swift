@@ -14,7 +14,7 @@ class MovieListTableViewController: UIViewController {
   
   var param: String = "0" {
     didSet {
-      DataManager.shared.service.fetchBoxOfficeData(requestType: RequestType.movieList, paramTitle: "order_type", param: param) { result in
+      DataManager.shared.service.fetchBoxOfficeData(requestType: RequestType.movieList, paramTitle: "order_type", param: param) { (result: Result<BoxOfficeList, ServiceError>) in
         DispatchQueue.main.async {
           switch result {
           case .success(let contents):
@@ -87,7 +87,7 @@ class MovieListTableViewController: UIViewController {
   }
   
   private func networkService() {
-    DataManager.shared.service.fetchBoxOfficeData(requestType: RequestType.movieList, paramTitle: "order_type", param: param) { result in
+    DataManager.shared.service.fetchBoxOfficeData(requestType: RequestType.movieList, paramTitle: "order_type", param: param) { (result: Result<BoxOfficeList, ServiceError>) in
       DispatchQueue.main.async {
         switch result {
         case .success(let contents):
@@ -101,7 +101,7 @@ class MovieListTableViewController: UIViewController {
   }
   
   private func request(usingIndicator: Bool = true) {
-    DataManager.shared.service.fetchBoxOfficeData(requestType: RequestType.movieList, paramTitle: "order_type", param: param) { result in
+    DataManager.shared.service.fetchBoxOfficeData(requestType: RequestType.movieList, paramTitle: "order_type", param: param) { (result: Result<BoxOfficeList, ServiceError>) in
       DispatchQueue.main.async {
         usingIndicator ? self.activityIndicatorView.stopAnimating() : self.tableviewRefreshControl.endRefreshing()
       }
@@ -125,9 +125,13 @@ extension MovieListTableViewController: UITableViewDataSource {
   }
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    guard let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as? MovieListTableCell else {
-      return UITableViewCell()
+    guard let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as?
+      MovieListTableCell else {
+        return UITableViewCell()
     }
+    // 테이블셀 왼쪽 여백 없애기
+    cell.separatorInset = UIEdgeInsets.zero
+    cell.selectionStyle = .none
     
     cell.movieList = movieList[indexPath.row]
     
@@ -141,8 +145,12 @@ extension MovieListTableViewController: UITableViewDelegate {
   }
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    let controller = MovieDetailViewController()
+    
     let detailMovie = movieList[indexPath.row]
-    //    movieDetailTableView.movieId = movieList.id
-    //    movieDetailTableView.movietitle = movieList.title
+    controller.movieId = detailMovie.id
+    controller.movietitle = detailMovie.title
+    
+    navigationController?.pushViewController(controller, animated: true)
   }
 }

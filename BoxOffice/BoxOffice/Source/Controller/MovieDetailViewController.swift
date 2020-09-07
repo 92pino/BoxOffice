@@ -18,18 +18,17 @@ class MovieDetailViewController: UITableViewController {
   
   // TODO: 헤더 영역이 안잡히고있다.....ㅠㅠ
   // Section0으로 바꿔야되나
-  var headerView: MovieDetailHeaderView = {
-    let headerView = MovieDetailHeaderView()
-    headerView.setNeedsLayout()
-    headerView.layoutIfNeeded()
-    
-    return headerView
-  }()
+  //  var headerView: MovieDetailHeaderView = {
+  //    let headerView = MovieDetailHeaderView()
+  //    headerView.setNeedsLayout()
+  //    headerView.layoutIfNeeded()
+  //
+  //    return headerView
+  //  }()
   
   var movieDetail: BoxOfficeDetail? {
     didSet {
       DispatchQueue.main.async { [weak self] in
-        self?.setupTableViewHeader()
         self?.tableView.reloadData()
       }
     }
@@ -45,14 +44,10 @@ class MovieDetailViewController: UITableViewController {
     navigationItem.title = movietitle
     
     setupTableview()
-    
-    tableView.tableHeaderView = headerView
-    
-    setupTableViewHeader()
   }
   
   override func numberOfSections(in tableView: UITableView) -> Int {
-    return 4
+    return 1
   }
   
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -65,17 +60,54 @@ class MovieDetailViewController: UITableViewController {
       return 1
     case 3:
       return 1
+    case 4:
+      return 1
     default:
       return 0
     }
   }
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    //    if indexPath.section == 0 {
-    guard let cell = tableView.dequeueReusableCell(withIdentifier: "movieInfoStory", for: indexPath) as? MovieInfoStoryCell else {
+    guard let movieDetail = self.movieDetail else {
       return UITableViewCell()
     }
-    cell.movieStoryTextView.text = movieDetail?.synopsis
+    
+    //    if indexPath.section == 0 {
+    guard let cell = tableView.dequeueReusableCell(withIdentifier: "movieDetailHeader", for: indexPath) as? MovieDetailHeaderCell else {
+      return UITableViewCell()
+    }
+    
+    cell.separatorInset = UIEdgeInsets.zero
+    cell.selectionStyle = .none
+    
+    DispatchQueue.global().async {
+      guard let imageURL: URL = URL(string: movieDetail.image) else {
+        return
+      }
+      
+      if let image = self.cache.object(forKey: imageURL.absoluteString as NSString) {
+        print("cache")
+        print(image)
+        DispatchQueue.main.async {
+          cell.moviePosterImageView.image = image
+        }
+      }else {
+        print("not cache")
+        do {
+          let imageData: Data = try Data(contentsOf: imageURL)
+          self.cache.setObject(UIImage(data: imageData) ?? #imageLiteral(resourceName: "img_placeholder"), forKey: imageURL.absoluteString as NSString)
+          DispatchQueue.main.async {
+            cell.moviePosterImageView.image = UIImage(data: imageData)
+          }
+        } catch (let error) {
+          print(error.localizedDescription)
+        }
+      }
+    }
+    
+    cell.movieTitleLabel.text = movieDetail.title
+    cell.movieGenreLabel.text = movieDetail.genreAndDuration
+    cell.movieOpenDayLabel.text = movieDetail.longOpenDay
     return cell
     //    }
   }
@@ -96,59 +128,9 @@ class MovieDetailViewController: UITableViewController {
   }
   
   private func setupTableview() {
+    tableView.register(MovieDetailHeaderCell.self, forCellReuseIdentifier: "movieDetailHeader")
     tableView.register(MovieInfoStoryCell.self, forCellReuseIdentifier: "movieInfoStory")
   }
-  
-  private func setupTableViewHeader() {
-    setupMoviePosterImage()
-    NSLayoutConstraint.activate([
-      headerView.topAnchor.constraint(equalTo: view.topAnchor),
-      headerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-      headerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-      headerView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-    ])
-    
-    guard let movieDetail = movieDetail else { return }
-    
-    headerView.movieTitleLabel.text = movieDetail.title
-    headerView.movieGenreLabel.text = movieDetail.genreAndDuration
-    headerView.movieOpenDayLabel.text = movieDetail.longOpenDay
-  }
-  
-  func setupMoviePosterImage(){
-      
-      DispatchQueue.global().async { [weak self] in
-          guard let self = self else {
-              return
-          }
-          
-          guard let movieDetail = self.movieDetail else {
-              return
-          }
-    
-          guard let imageURL: URL = URL(string: movieDetail.image ) else {
-              return
-          }
-          
-          // caching image
-          if let image = self.cache.object(forKey: imageURL.absoluteString as NSString) {
-              DispatchQueue.main.async {
-                  self.headerView.moviePosterImageView.image = image
-              }
-          }else {
-              do {
-                  let imageData: Data = try Data(contentsOf: imageURL)
-                  self.cache.setObject(UIImage(data: imageData) ?? #imageLiteral(resourceName: "img_placeholder"), forKey: imageURL.absoluteString as NSString)
-                  DispatchQueue.main.async {
-                      self.headerView.moviePosterImageView.image = UIImage(data: imageData)
-                  }
-              } catch (let error) {
-                  print(error.localizedDescription)
-              }
-          }
-      }
-  }
-  
   
   // Mark: - Selectors
   
